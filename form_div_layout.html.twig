@@ -20,7 +20,7 @@
     {% elseif attr.append_input is defined and attr.append_input is not empty %}
         {{ block('form_widget_append_input') }}
     {% else %}
-        <input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}>
+        <input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %} class="form-control">
     {% endif %}
     {% if attr.help_block is defined %}
         {{ block('help_block') }}
@@ -272,7 +272,7 @@
         {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
     {% endif %}
     {% if form_type is defined and form_type == 'horizontal' %}
-        {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' control-label')|trim}) %}
+        {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' col-lg-2 control-label')|trim}) %}
     {% endif %}
     {% if label is empty %}
         {% set label = name|humanize %}
@@ -353,9 +353,9 @@ to the first child (see RepeatedTypeValidatorExtension).
 
 {% block horizontal_row %}
 {% spaceless %}
-    <div class="control-group{% if errors|length %} error{% endif %}">
+    <div class="form-group{% if errors|length %} has-error{% endif %}">
         {{ form_label(form) }}
-        <div class="controls">
+        <div class="col-lg-5">
             {{ form_widget(form) }}
             {{ form_errors(form) }}
         </div>
@@ -380,8 +380,8 @@ placed inside the label. See checkbox_label block.
 
 {% block horizontal_checkbox_row %}
 {% spaceless %}
-    <div class="control-group">
-        <div class="controls">
+    <div class="form-group">
+        <div class=col-lg-5">
             {{ form_label(form) }}
             {{ form_errors(form) }}
         </div>
@@ -411,7 +411,7 @@ placed inside the label. See checkbox_label block.
 {% block form_errors %}
 {% spaceless %}
     {% if errors|length == 1 %}
-    <span class="help-inline">{{
+    <span class="control-label">{{
         errors[0].messagePluralization is null
             ? errors[0].messageTemplate|trans(errors[0].messageParameters, 'validators')
             : errors[0].messageTemplate|transchoice(errors[0].messagePluralization, errors[0].messageParameters, 'validators')
