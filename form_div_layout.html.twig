@@ -34,8 +34,8 @@
 {% block form_widget_prepend_append_input %}
 {% spaceless %}
     <div class="input-prepend input-append">
-        <span class="add-on">{{ attr.prepend_input|trans({}, translation_domain) }}</span>
-        {% set append_input = attr.append_input|trans({}, translation_domain) %}
+        <span class="add-on">{{ attr.prepend_input }}</span>
+        {% set append_input = attr.append_input %}
         {% set attr = attr|merge({'prepend_input': '', 'append_input': ''}) %}
         {{ block('form_widget_simple') }}
         <span class="add-on">{{ append_input }}</span>
@@ -46,7 +46,7 @@
 {% block form_widget_prepend_input %}
 {% spaceless %}
     <div class="input-prepend">
-        <span class="add-on">{{ attr.prepend_input|trans({}, translation_domain) }}</span>
+        <span class="add-on">{{ attr.prepend_input }}</span>
         {% set attr = attr|merge({'prepend_input': ''}) %}
         {{ block('form_widget_simple') }}
     </div>
@@ -56,7 +56,7 @@
 {% block form_widget_append_input %}
 {% spaceless %}
     <div class="input-append">
-        {% set append_input = attr.append_input|trans({}, translation_domain) %}
+        {% set append_input = attr.append_input %}
         {% set attr = attr|merge({'append_input': ''}) %}
         {{ block('form_widget_simple') }}
         <span class="add-on">{{ append_input }}</span>
@@ -112,7 +112,7 @@
 {% spaceless %}
     <select {{ block('widget_attributes') }}{% if multiple %} multiple="multiple"{% endif %} class="form-control">
         {% if empty_value is not none %}
-            <option value="">{{ empty_value|trans({}, translation_domain) }}</option>
+            <option value="">{{ empty_value }}</option>
         {% endif %}
         {% if preferred_choices|length > 0 %}
             {% set options = preferred_choices %}
@@ -131,12 +131,12 @@
 {% spaceless %}
     {% for group_label, choice in options %}
         {% if choice is iterable %}
-            <optgroup label="{{ group_label|trans({}, translation_domain) }}">
+            <optgroup label="{{ group_label }}">
                 {% set options = choice %}
                 {{ block('choice_widget_options') }}
             </optgroup>
         {% else %}
-            <option value="{{ choice.value }}"{% if choice is selectedchoice(value) %} selected="selected"{% endif %}>{{ choice.label|trans({}, translation_domain) }}</option>
+            <option value="{{ choice.value }}"{% if choice is selectedchoice(value) %} selected="selected"{% endif %}>{{ choice.label }}</option>
         {% endif %}
     {% endfor %}
 {% endspaceless %}
@@ -298,7 +298,7 @@
     {% endif %}
 {% endspaceless %}
     <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
-        {{ form_widget(form) }} {{ label|trans({}, translation_domain) }}
+        {{ form_widget(form) }} {{ label }}
     </label>
 {% endblock checkbox_label %}
 
@@ -316,7 +316,7 @@
     {% endif %}
 {% endspaceless %}
     <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
-        {{ form_widget(form) }} {{ label|trans({}, translation_domain) }}
+        {{ form_widget(form) }} {{ label }}
     </label>
 {% endblock radio_label %}
 
@@ -413,16 +413,16 @@ placed inside the label. See checkbox_label block.
     {% if errors|length == 1 %}
     <span class="control-label">{{
         errors[0].messagePluralization is null
-            ? errors[0].messageTemplate|trans(errors[0].messageParameters, 'validators')
-            : errors[0].messageTemplate|transchoice(errors[0].messagePluralization, errors[0].messageParameters, 'validators')
+            ? errors[0].messageTemplate
+            : errors[0].messageTemplate
     }}</span>
     {% elseif errors|length > 0 %}
     <ul class="help-block">
         {% for error in errors %}
             <li>{{
                 error.messagePluralization is null
-                    ? error.messageTemplate|trans(error.messageParameters, 'validators')
-                    : error.messageTemplate|transchoice(error.messagePluralization, error.messageParameters, 'validators')
+                    ? error.messageTemplate
+                    : error.messageTemplate
             }}</li>
         {% endfor %}
     </ul>
@@ -443,7 +443,7 @@ placed inside the label. See checkbox_label block.
 {% block help_block %}
 {% spaceless %}
     {% if attr.help_block is defined %}
-    <span class="help-block">{{ attr.help_block|trans({}, translation_domain) }}</span>
+    <span class="help-block">{{ attr.help_block }}</span>
     {% endif %}
 {% endspaceless %}
 {% endblock help_block %}
@@ -451,7 +451,7 @@ placed inside the label. See checkbox_label block.
 {% block help_inline %}
 {% spaceless %}
     {% if attr.help is defined %}
-    <span class="help-inline">{{ attr.help|trans({}, translation_domain) }}</span>
+    <span class="help-inline">{{ attr.help }}</span>
     {% endif %}
 {% endspaceless %}
 {% endblock help_inline %}
@@ -476,7 +476,7 @@ placed inside the label. See checkbox_label block.
 {% block widget_attributes %}
 {% spaceless %}
     id="{{ id }}" name="{{ full_name }}"{% if read_only %} readonly="readonly"{% endif %}{% if disabled %} disabled="disabled"{% endif %}{% if required %} required="required"{% endif %}{% if max_length %} maxlength="{{ max_length }}"{% endif %}{% if pattern %} pattern="{{ pattern }}"{% endif %}
-    {% for attrname, attrvalue in attr %}{% if attrname in ['placeholder', 'title'] %}{{ attrname }}="{{ attrvalue|trans({}, translation_domain) }}" {% else %}{{ attrname }}="{{ attrvalue }}" {% endif %}{% endfor %}
+    {% for attrname, attrvalue in attr %}{% if attrname in ['placeholder', 'title'] %}{{ attrname }}="{{ attrvalue }}" {% else %}{{ attrname }}="{{ attrvalue }}" {% endif %}{% endfor %}
 {% endspaceless %}
 {% endblock widget_attributes %}
 
