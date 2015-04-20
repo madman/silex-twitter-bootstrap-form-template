@@ -1,7 +1,7 @@
 silex-twitter-bootstrap-form-template
 =====================================
 
-Adding Bootstrap3 from Twitter to your Silex forms
+Adding Bootstrap3 from Twitter to your Silex forms without I18n support
 
 Based in the Bootstrap Bundle
 https://github.com/braincrafted/bootstrap-bundle/
